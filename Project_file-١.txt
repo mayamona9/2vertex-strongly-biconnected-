@@ -18,7 +18,7 @@ class Graph:
             self.time = 0
             root_children = 0
             start_vertex = 0
-#مايا سلمان
+# مايا سلمان
             self._is_vertex_strongly_biconnected_util(
                 start_vertex, visited, low, disc, parent, ap
             )
