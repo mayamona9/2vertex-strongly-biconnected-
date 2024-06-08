@@ -1,0 +1,114 @@
+//سالي احمد 
+class Graph:
+    def init(self, vertices):
+        self.V = vertices
+        self.adj = [[] for _ in range(vertices)]
+
+    def add_edge(self, u, v):
+        self.adj[u].append(v)
+        self.adj[v].append(u)
+
+    def is_vertex_strongly_biconnected(self):
+        if self.is_connected():
+            visited = [False] * self.V
+            low = [float("inf")] * self.V
+            disc = [float("inf")] * self.V
+            parent = [-1] * self.V
+            ap = [False] * self.V
+            self.time = 0
+            root_children = 0
+            start_vertex = 0
+//مايا سلمان 
+            self._is_vertex_strongly_biconnected_util(
+                start_vertex, visited, low, disc, parent, ap
+            )
+
+            if sum(ap) > 1:
+                return False
+//جودي زلوخ
+            for v in range(self.V):
+                if not visited[v]:
+                    return False
+            return True
+
+        return False
+//مايا منى
+    def _is_vertex_strongly_biconnected_util(self, u, visited, low, disc, parent, ap):
+        visited[u] = True
+        disc[u] = self.time
+        low[u] = self.time
+        self.time += 1
+        children = 0
+        for v in self.adj[u]:
+            if not visited[v]:
+                parent[v] = u
+                children += 1
+//سالي احمد & كاتيا رمضان      self._is_vertex_strongly_biconnected_util(
+                    v, visited, low, disc, parent, ap
+                )
+
+                low[u] = min(low[u], low[v])
+
+                if parent[u] == -1 and children > 1:
+                    ap[u] = True
+
+                if parent[u] != -1 and low[v] >= disc[u]:
+                    ap[u] = True
+
+            elif v != parent[u]:
+                low[u] = min(low[u], disc[v])
+//مايا علي
+    def is_connected(self):
+        visited = [False] * self.V
+        stack = []
+        stack.append(0)
+        visited[0] = True
+
+        while stack:
+            u = stack.pop()
+            for v in self.adj[u]:
+                if not visited[v]:
+                    stack.append(v)
+                    visited[v] = True
+
+        return all(visited)
+//كاتيا رمضان 
+    def is_undirected_graph_biconnected(self):
+        visited = [False] * self.V
+        disc = [float("inf")] * self.V
+        low = [float("inf")] * self.V
+        parent = [-1] * self.V
+
+        return self._is_undirected_graph_biconnected_util(
+            0, visited, disc, low, parent
+        )
+//سالم بصل
+    def _is_undirected_graph_biconnected_util(self, u, visited, disc, low, parent):
+        visited[u] = True
+        disc[u] = self.time
+        low[u] = self.time
+        self.time += 1
+        children = 0
+//حسين قرحيلي 
+        for v in self.adj[u]:
+            if not visited[v]:
+                parent[v] = u
+                children += 1
+                if self._is_undirected_graph_biconnected_util(
+                    v, visited, disc, low, parent
+                ):
+                    return True
+//عمار شالاتي
+
+                low[u] = min(low[u], low[v])
+
+                if parent[u] == -1 and children > 1:
+                    return True
+
+                if parent[u] != -1 and low[v] >= disc[u]:
+                    return True
+
+            elif v != parent[u]:
+                low[u] = min(low[u], disc[v])
+
+        return False
