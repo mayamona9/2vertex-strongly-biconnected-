@@ -1,4 +1,4 @@
-//سالي احمد 
+#سالي احمد
 class Graph:
     def init(self, vertices):
         self.V = vertices
@@ -18,22 +18,22 @@ class Graph:
             self.time = 0
             root_children = 0
             start_vertex = 0
-//مايا سلمان 
+#مايا سلمان
             self._is_vertex_strongly_biconnected_util(
                 start_vertex, visited, low, disc, parent, ap
             )
 
             if sum(ap) > 1:
                 return False
-//جودي زلوخ
+#جودي زلوخ
             for v in range(self.V):
                 if not visited[v]:
                     return False
             return True
 
         return False
-//مايا منى
-    def _is_vertex_strongly_biconnected_util(self, u, visited, low, disc, parent, ap):
+
+ #مايا منى   def_is_vertex_strongly_biconnected_util(self, u, visited, low, disc, parent, ap):
         visited[u] = True
         disc[u] = self.time
         low[u] = self.time
@@ -43,7 +43,8 @@ class Graph:
             if not visited[v]:
                 parent[v] = u
                 children += 1
-//سالي احمد & كاتيا رمضان      self._is_vertex_strongly_biconnected_util(
+#سالي احمد &مايا منى & مايا علي 
+self._is_vertex_strongly_biconnected_util(
                     v, visited, low, disc, parent, ap
                 )
 
@@ -57,7 +58,7 @@ class Graph:
 
             elif v != parent[u]:
                 low[u] = min(low[u], disc[v])
-//مايا علي
+#مايا علي 
     def is_connected(self):
         visited = [False] * self.V
         stack = []
@@ -72,7 +73,7 @@ class Graph:
                     visited[v] = True
 
         return all(visited)
-//كاتيا رمضان 
+#كاتيا رمضان
     def is_undirected_graph_biconnected(self):
         visited = [False] * self.V
         disc = [float("inf")] * self.V
@@ -82,14 +83,14 @@ class Graph:
         return self._is_undirected_graph_biconnected_util(
             0, visited, disc, low, parent
         )
-//سالم بصل
+#سالم بصل
     def _is_undirected_graph_biconnected_util(self, u, visited, disc, low, parent):
         visited[u] = True
         disc[u] = self.time
         low[u] = self.time
         self.time += 1
         children = 0
-//حسين قرحيلي 
+#حسين قرحيلي
         for v in self.adj[u]:
             if not visited[v]:
                 parent[v] = u
@@ -98,7 +99,7 @@ class Graph:
                     v, visited, disc, low, parent
                 ):
                     return True
-//عمار شالاتي
+#عمار شالاتي
 
                 low[u] = min(low[u], low[v])
 
